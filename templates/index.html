@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Video Saver - Download Videos & MP3</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+
+    <!-- Brand Name & Tagline -->
+    <div class="text-center mb-4">
+        <h1 class="brand-name fw-bold">
+            <span class="text-red">V</span>
+            <span class="text-orange">i</span>
+            <span class="text-yellow">d</span>
+            <span class="text-green">e</span>
+            <span class="text-blue">o</span>
+            <span class="text-purple">S</span>
+            <span class="text-pink">a</span>
+            <span class="text-cyan">v</span>
+            <span class="text-indigo">e</span>
+            <span class="text-red">r</span>
+        </h1>
+        <p class="text-muted tagline">Download videos from YouTube, TikTok, Instagram, Facebook — all in one click!</p>
+    </div>
+
+    <!-- Input Form -->
+    <form method="POST" class="card p-4 shadow-sm mb-4">
+        <input class="form-control mb-3" type="text" name="url" placeholder="Paste YouTube / TikTok / Instagram / Facebook link" required>
+        <button class="btn btn-primary w-100">Get Download Links</button>
+    </form>
+
+    {% if video_formats or audio_formats %}
+    <!-- Result Card -->
+    <div class="card mt-4 shadow-sm">
+        <div class="card-body">
+
+            <!-- Thumbnail Image -->
+            {% if thumbnail %}
+            <div class="text-center mb-3">
+                <img src="{{ thumbnail }}" alt="Thumbnail" class="img-fluid rounded">
+            </div>
+            {% endif %}
+
+            <h5 class="text-center">{{ title }}</h5>
+
+            <ul class="nav nav-tabs mt-3">
+                <li class="nav-item">
+                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#video">Video</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#audio">Audio (MP3)</button>
+                </li>
+            </ul>
+
+            <div class="tab-content mt-3">
+
+                <!-- VIDEO -->
+                <div class="tab-pane fade show active" id="video">
+                    <table class="table table-hover">
+                        <tr>
+                            <th>Resolution</th>
+                            <th>Format</th>
+                            <th>Size (MB)</th>
+                            <th></th>
+                        </tr>
+                        {% for v in video_formats %}
+                        <tr>
+                            <td>{{ v.resolution }} {% if not v.has_audio %}<span class="badge bg-warning text-dark">Video-only</span>{% endif %}</td>
+                            <td>{{ v.ext }}</td>
+                            <td>{{ v.size }}</td>
+                            <td><a class="btn btn-sm btn-success" href="{{ v.url }}" target="_blank">Download</a></td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+
+                <!-- AUDIO -->
+                <div class="tab-pane fade" id="audio">
+                    <table class="table table-hover">
+                        <tr>
+                            <th>Format</th>
+                            <th>Size (MB)</th>
+                            <th></th>
+                        </tr>
+                        {% for a in audio_formats %}
+                        <tr>
+                            <td>{{ a.ext }}</td>
+                            <td>{{ a.size }}</td>
+                            <td><a class="btn btn-sm btn-warning" href="{{ a.url }}" target="_blank">Download</a></td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- About Section -->
+    <div class="text-center mt-5 mb-5">
+        <p class="text-muted">Developed by <strong>Mr. Ayan</strong></p>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

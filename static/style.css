@@ -1,0 +1,141 @@
+/* Body & general styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to right, #f7f9fc, #e2e8f0);
+    color: #333;
+}
+
+/* Brand Name Colors */
+.text-red { color: #e74c3c; }
+.text-orange { color: #e67e22; }
+.text-yellow { color: #f1c40f; }
+.text-green { color: #2ecc71; }
+.text-blue { color: #3498db; }
+.text-purple { color: #9b59b6; }
+.text-pink { color: #fd79a8; }
+.text-cyan { color: #1abc9c; }
+.text-indigo { color: #6c5ce7; }
+
+/* Brand Name Animation */
+.brand-name {
+    font-size: 3rem;
+    animation: fadeInDown 1s ease forwards;
+}
+
+/* Tagline Animation */
+.tagline {
+    animation: fadeIn 1.5s ease forwards;
+}
+
+/* Input Form Card */
+form.card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+form.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Input Field Focus Animation */
+input.form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+    transition: 0.3s ease-in-out;
+}
+
+/* Buttons Hover Animation */
+button.btn {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
+}
+
+/* Result Card */
+.card {
+    border-radius: 12px;
+    background-color: #ffffff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Thumbnail Styling */
+img.img-fluid {
+    border-radius: 12px;
+    transition: transform 0.4s ease;
+}
+
+img.img-fluid:hover {
+    transform: scale(1.05) rotate(1deg);
+}
+
+/* Table Styling */
+table.table {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+table.table th {
+    background-color: #f1f5f9;
+    font-weight: 600;
+}
+
+table.table tr:hover {
+    background-color: #e0f2fe;
+    transition: 0.3s;
+}
+
+/* Video-only badge */
+.badge.bg-warning {
+    font-size: 0.75rem;
+    padding: 0.25em 0.5em;
+}
+
+/* Tabs Animation */
+.nav-tabs .nav-link {
+    transition: 0.3s;
+}
+
+.nav-tabs .nav-link:hover {
+    background-color: #e0f2fe;
+    border-radius: 8px;
+}
+
+/* Card fade-in animation */
+.card-body {
+    animation: fadeIn 0.7s ease-in-out;
+}
+
+/* Keyframes */
+@keyframes fadeInDown {
+    0% { opacity: 0; transform: translateY(-20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    table.table {
+        font-size: 0.9rem;
+    }
+    button.btn {
+        font-size: 0.9rem;
+    }
+    .brand-name {
+        font-size: 2rem;
+    }
+}
