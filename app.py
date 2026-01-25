@@ -18,10 +18,14 @@ def index():
         if not url or not url.startswith("http"):
             error = "Please enter a valid URL."
         else:
-            ydl_opts = {
-                "quiet": True,
-                "skip_download": True
-            }
+           ydl_opts = {
+    "quiet": True,
+    "skip_download": True,
+    "nocheckcertificate": True,
+    "geo_bypass": True,
+    "user_agent": "Mozilla/5.0",
+}
+
 
             try:
                 with yt_dlp.YoutubeDL(ydl_opts) as ydl:
