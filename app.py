@@ -26,11 +26,17 @@ def index():
                 "user_agent": "Mozilla/5.0",
             }
 
-            try:
-                with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-                    info = ydl.extract_info(url, download=False)
-                    title = info.get("title", "Video")
-                    thumbnail = info.get("thumbnail", "")
+           try:
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        info = ydl.extract_info(url, download=False)
+
+        title = info.get("title", "Video")
+        thumbnail = info.get("thumbnail", "")
+
+       
+except Exception as e:
+    error = "Could not fetch video info (YouTube blocked or invalid URL)"
+    thumbnail = ""  
 
             except Exception as e:
                 error = "YouTube blocked this server. Try again later."
