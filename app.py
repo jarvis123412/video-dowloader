@@ -1,15 +1,17 @@
 from flask import Flask, render_template, request
 import yt_dlp
+import os
 
 app = Flask(__name__)
-
+# THis is route 
 @app.route("/", methods=["GET", "POST"])
 def index():
     video_formats = []
     audio_formats = []
     title = ""
     error = ""
-
+    thumbnail = ""
+#this is Post req 
     if request.method == "POST":
         url = request.form.get("url")
 
@@ -25,11 +27,9 @@ def index():
                 with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                     info = ydl.extract_info(url, download=False)
                     title = info.get("title", "Video")
-                    thumbnail = info.get("thumbnail", "")  # Get thumbnail image
+                    thumbnail = info.get("thumbnail", "")
 
-                    # ---------------------------
-                    # Process video formats
-                    # ---------------------------
+                    # Video formats
                     video_dict = {}
                     for f in info.get("formats", []):
                         size = f.get("filesize") or f.get("filesize_approx")
@@ -40,7 +40,6 @@ def index():
                         if not height:
                             continue
 
-                        # Keep largest file per resolution
                         if height not in video_dict or size > video_dict[height]["size_bytes"]:
                             video_dict[height] = {
                                 "resolution": f"{height}p",
@@ -48,15 +47,13 @@ def index():
                                 "size": round(size / (1024 * 1024), 2),
                                 "size_bytes": size,
                                 "url": f["url"],
-                                "has_audio": f.get("acodec") != "none"  # mark if it has audio
+                                "has_audio": f.get("acodec") != "none"
                             }
 
                     video_formats = list(video_dict.values())
                     video_formats.sort(key=lambda x: int(x["resolution"].replace("p", "")), reverse=True)
 
-                    # ---------------------------
-                    # Process audio-only formats
-                    # ---------------------------
+                    # Audio formats
                     for f in info.get("formats", []):
                         size = f.get("filesize") or f.get("filesize_approx")
                         if not size:
@@ -72,9 +69,6 @@ def index():
             except Exception as e:
                 error = f"Error: {str(e)}"
 
-    else:
-        thumbnail = ""
-
     return render_template(
         "index.html",
         title=title,
@@ -84,5 +78,7 @@ def index():
         error=error
     )
 
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
